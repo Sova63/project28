@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Аутентификация</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style4.css">
+</head>
+<body>
+<div class="container-fluid mt-6 content-container" style= "background: url('/static/img/img4.jpg') no-repeat center center/cover;" >
+        <div class="row">
+            <div class="col-md-12">
+                <p class="list-unstyled">
+                  <section class="vh-100 bg-image">
+                    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+                      <div class="container h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                            <div class="card" style="border-radius: 15px;">
+                              <div class="card-body p-3">
+                                <h3 class="text-uppercase text-center mb-3">Войти в аккаунт</h3>
+                                    <form method="post">
+                                         {% csrf_token %}
+                                        <div data-mdb-input-init class="form-outline mb-2">
+                                            {{ form.username.label }}
+                                            {{ form.username }}
+                                        </div>
+                                        <div data-mdb-input-init class="form-outline mb-2">
+                                            {{ form.user_email.label }}
+                                            {{ form.user_email }}
+                                        </div>
+                                        <div data-mdb-input-init class="form-outline mb-2">
+                                            {{ form.password.label }}
+                                            {{ form.password }}
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <button  type="submit" data-mdb-button-init
+                                            data-mdb-ripple-init class="btn btn-light btn-block btn-lg gradient-custom-4 text-body">Вход</button>
+                                        </div>
+                                        <div>
+                                            <p class="text-center text-muted mt-4 mb-0">У Вас нет регистрации? <a href="{% url 'signup' %}"
+                                            class="fw-bold text-body"><u>Регистрация здесь</u></a></p>
+                                        </div>
+                                    </form>
+                                        <div>
+                                            {% if messages %}
+                                                {% for message in messages %}
+                                                    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">{{ message }}</div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
