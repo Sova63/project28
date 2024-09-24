@@ -2,7 +2,7 @@ from django import forms
 from domain.models import User
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput, CharField
 from django.core.exceptions import ValidationError
-
+from domain.views import encrypt_password
 
 
 class UserForm(forms.ModelForm):
@@ -39,7 +39,20 @@ class UserForm(forms.ModelForm):
             raise ValidationError("Пароли не совпадают.")
         return cleaned_data
 
+    '''def save(self, commit=True):
+        user = super().save(commit=False)
+        user.password = encrypt_password(user.password)  # Шифруем пароль перед сохранением
+        if commit:
+            user.save()
+        return user'''
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        encrypted_password = encrypt_password(user.password)
+        user.password = encrypted_password
+        if commit:
+            user.save()
+        return user
 
 
 

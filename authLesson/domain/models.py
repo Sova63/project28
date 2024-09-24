@@ -13,5 +13,15 @@ class User(models.Model):
 	def __str__(self):
 		return self.username
 
-	def isUserPasswordValid(self,password):
-		return decrypt_password(self.password) == password
+	def save(self, *args, **kwargs):
+		# Шифруем пароль перед сохранением
+		self.password = encrypt_password(self.password)
+		super().save(*args, **kwargs)
+
+	def isUserPasswordValid(self, password):
+		print(self.password)
+		decrypted_password = decrypt_password(self.password)
+		return decrypted_password == password
+
+	'''	def isUserPasswordValid(self,password):
+			return decrypt_password(self.password) == password'''

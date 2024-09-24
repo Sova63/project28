@@ -12,7 +12,9 @@ def signup(request):
 	if request.method == "POST":
 		form = UserForm(request.POST)
 		if form.is_valid():
-			form.save()
+			user = form.save(commit=False)
+			user.password = form.cleaned_data['password']  # Получаем пароль из формы
+			user.save()  # Сохраняем пользователя с зашифрованным паролем
 			messages.success(request, "Регистрация прошла успешно!")
 			return redirect('signup')
 	else:
